@@ -6,7 +6,7 @@ God.watch do |w|
   w.name = "unicorn"
   w.interval = 30.seconds # default
 
-  w.start = "cd #{APP_ROOT} && unicorn -c #{APP_ROOT}config/unicorn.rb -D"
+  w.start = "cd #{APP_ROOT} && unicorn -c #{APP_ROOT}config/unicorn.rb"
 
   # -QUIT = graceful shutdown, waits for workers to finish their current request before finishing
   w.stop = "kill -QUIT `cat #{APP_ROOT}tmp/unicorn-master.pid`"
