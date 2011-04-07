@@ -1,20 +1,21 @@
 # God configuration
 
-APP_ROOT = "/Users/lee/code/sinatra-unicorn-god/"
+APP_ROOT = "/Users/lee/code/sinatra-unicorn-god"
 
 God.watch do |w|
   w.name = "unicorn"
   w.interval = 30.seconds # default
 
-  w.start = "cd #{APP_ROOT} && unicorn -c #{APP_ROOT}config/unicorn.rb"
+  w.start = "cd #{APP_ROOT} && unicorn -c #{APP_ROOT}/config/unicorn.rb -D"
 
   # -QUIT = graceful shutdown, waits for workers to finish their current request before finishing
-  w.stop = "kill -QUIT `cat #{APP_ROOT}tmp/unicorn-master.pid`"
+  w.stop = "kill -QUIT `cat #{APP_ROOT}/tmp/unicorn-master.pid`"
 
-  w.restart = "kill -USR2 `cat #{APP_ROOT}tmp/unicorn-master.pid`"
+  w.restart = "kill -USR2 `cat #{APP_ROOT}/tmp/unicorn-master.pid`"
 
   w.start_grace = 10.seconds
   w.restart_grace = 10.seconds
+  w.pid_file = "#{APP_ROOT}/tmp/unicorn-master.pid"
 
   # User under which to run the process
   w.uid = 'lee'
